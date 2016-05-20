@@ -1,0 +1,66 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SerializationWorkaround">
+
+    <Style TargetType="local:PrismValidationWrapper">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PrismValidationWrapper">
+                    <Grid HorizontalAlignment="Left"
+                          x:Name="rootGrid"
+                          VerticalAlignment="Top">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ErrorGroup">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.2" To="Normal"/>
+                                </VisualStateGroup.Transitions>
+
+                                <!--Estados obrigatórios-->
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Error">
+                                    <Storyboard>
+                                        <ColorAnimation EnableDependentAnimation="True"
+                                                        Duration="0:0:0.2"
+                                                        Storyboard.TargetName="rect"
+                                                        Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                                        To="Red" />
+                                    </Storyboard>
+                                    <VisualState.Setters>
+                                        <Setter Target="content.(ToolTipService.ToolTip).Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ContentPresenter x:Name="content" Content="{TemplateBinding Content}">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Placement="Mouse" Visibility="Collapsed">
+                                    <!-- Errors é a coleção de erros -->
+                                    <ItemsControl ItemsSource="{TemplateBinding Errors}" />
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                        </ContentPresenter>
+
+                        <Border x:Name="Indicator"
+                                Grid.Row="1"
+                                Height="4"
+                                HorizontalAlignment="Stretch"
+                                Padding="0,2,0,0">
+
+                            <Rectangle x:Name="rect"
+                                       Fill="Transparent"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
