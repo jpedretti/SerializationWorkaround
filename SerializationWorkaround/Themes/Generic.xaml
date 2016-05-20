@@ -42,7 +42,7 @@
                             <ToolTipService.ToolTip>
                                 <ToolTip Placement="Mouse" Visibility="Collapsed">
                                     <!-- Errors é a coleção de erros -->
-                                    <ItemsControl ItemsSource="{TemplateBinding Errors}" />
+                                    <ItemsControl ItemsSource="{TemplateBinding Errors}"/>
                                 </ToolTip>
                             </ToolTipService.ToolTip>
                         </ContentPresenter>

@@ -21,16 +21,9 @@ namespace SerializationWorkaround
         public static readonly DependencyProperty ErrorsProperty =
             DependencyProperty.Register("Errors", typeof(ReadOnlyCollection<string>), typeof(PrismValidationWrapper), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty HasErrorsProperty =
-            DependencyProperty.Register("HasErrors", typeof(bool), typeof(PrismValidationWrapper), new PropertyMetadata(false));
-
-        public static readonly DependencyProperty IsValidProperty =
-            DependencyProperty.Register("IsValid", typeof(bool), typeof(PrismValidationWrapper), new PropertyMetadata(true));
-
         #endregion Public Fields
 
         #region Public Constructors
-
 
         protected override void OnApplyTemplate()
         {
@@ -41,6 +34,7 @@ namespace SerializationWorkaround
         public PrismValidationWrapper()
         {
             DefaultStyleKey = typeof(PrismValidationWrapper);
+            IsTabStop = false;
             DataContextChanged += ValidationWrapper_DataContextChanged;
         }
 
@@ -58,18 +52,6 @@ namespace SerializationWorkaround
         {
             get { return (ReadOnlyCollection<string>)GetValue(ErrorsProperty); }
             set { SetValue(ErrorsProperty, value); }
-        }
-
-        public bool HasErrors
-        {
-            get { return (bool)GetValue(HasErrorsProperty); }
-            set { SetValue(HasErrorsProperty, value); }
-        }
-
-        public bool IsValid
-        {
-            get { return (bool)GetValue(IsValidProperty); }
-            set { SetValue(IsValidProperty, value); }
         }
 
         #endregion Public Properties
